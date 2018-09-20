@@ -20,7 +20,6 @@ def histogram_times(filename):
             hour = int(crash[1][-5:-3])
             crash_times[hour] += 1
 
-    print(crash_times)
     return crash_times
 
 
@@ -28,13 +27,13 @@ def weigh_pokemons(filename, weight):
     with open(filename) as f:
         poke_reader = json.load(f)
 
-    pokemon_Arr = []
+    pokemon_arr = []
     for pokemon in poke_reader['pokemon']:
         if float(pokemon['weight'][:-2]) == weight:
-            pokemon_Arr.append(pokemon['name'])
+            pokemon_arr.append(pokemon['name'])
 
-    print(pokemon_Arr)
-    return pokemon_Arr
+    return pokemon_arr
+
 
 def single_type_candy_count(filename):
     with open(filename) as f:
@@ -45,8 +44,6 @@ def single_type_candy_count(filename):
         if 'candy_count' in pokemon and len(pokemon['type']) == 1:
             candy_count += pokemon['candy_count']
 
-
-    print(candy_count)
     return candy_count
 
 
@@ -56,17 +53,14 @@ def reflections_and_projections(points):
     #reflect point over line y = n
     n = 1
     point_arr[1] = 2 * n - point_arr[1]
-    print(point_arr)
     #rotate the point rotateRad radians around origin CCW
     #rotateRad = np.pi / 2
     #rotateMat = np.array([[np.cos(rotateRad), -np.sin(rotateRad)],[np.sin(rotateRad), np.cos(rotateRad)]])
     rotate_mat = np.array([[0, -1], [1, 0]])
     point_arr = rotate_mat.dot(point_arr)
-    print(point_arr)
     #project point onto line y = 3x
     m = 3
     point_arr = np.array([[1, m], [m, m ** 2]]).dot(point_arr) / (1 + m ** 2)
-    print(point_arr)
 
     return point_arr
 
@@ -79,8 +73,8 @@ def normalize(image):
         return norm_image
 
     norm_image = 255 * (norm_image - pixel_min) / (pixel_max - pixel_min)
-    print(norm_image)
     return norm_image
+
 
 def sigmoid_normalize(image):
     norm_image = image
@@ -90,7 +84,6 @@ def sigmoid_normalize(image):
         return norm_image
 
     norm_image = 255.0 / (1 + np.e ** ((norm_image - 128) / (pixel_min - pixel_max)))
-    print(norm_image)
     return norm_image
 
 
