@@ -10,6 +10,7 @@ import numpy as np
 
 
 def histogram_times(filename):
+    import re
     with open(filename) as f:
         csv_reader = csv.reader(f)
         plane_data = list(csv_reader)
@@ -17,7 +18,7 @@ def histogram_times(filename):
     crash_times = [0] * 24
     for crash in plane_data[1:]:
         if crash[1]:
-            hour = int(crash[1][-5:-3])
+            hour = int(re.sub('[^0-9]', "", crash[1])[-4:-2])
             crash_times[hour] += 1
 
     return crash_times
@@ -85,11 +86,3 @@ def sigmoid_normalize(image):
 
     norm_image = 255.0 / (1 + np.e ** ((norm_image - 128) / (pixel_min - pixel_max)))
     return norm_image
-
-
-histogram_times("airplane_crashes.csv")
-weigh_pokemons("pokedex.json", 10.0)
-single_type_candy_count("pokedex.json")
-reflections_and_projections(np.array([[1, 2, 3, 4, 5], [1, 2, 3, 4, 5]]))
-normalize(np.array([[0, 5, 3], [255, 146, 26], [12, 56, 79]]))
-sigmoid_normalize(np.array([[1, 199], [3, 255]]))
