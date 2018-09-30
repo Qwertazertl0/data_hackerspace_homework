@@ -77,12 +77,10 @@ def normalize(image):
     return norm_image
 
 
-def sigmoid_normalize(image):
+def sigmoid_normalize(image, a):
     norm_image = image
-    pixel_max = norm_image.max()
-    pixel_min = norm_image.min()
-    if pixel_min == pixel_max:
+    if a == 0:
         return norm_image
 
-    norm_image = 255.0 / (1 + np.e ** ((norm_image - 128) / (pixel_min - pixel_max)))
+    norm_image = 255.0 / (1 + np.e ** ((norm_image - 128) / -a))
     return norm_image
